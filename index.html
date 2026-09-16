@@ -1,0 +1,637 @@
+1 <!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9/11 事件介紹</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --panel: #ffffff;
+            --panel-2: #eef3f9;
+            --text: #1d2430;
+            --muted: #58657a;
+            --accent: #d43d3d;
+            --accent-soft: rgba(212, 61, 61, 0.08);
+            --line: rgba(30, 41, 59, 0.1);
+            --gold: #b77a1d;
+            --shadow: rgba(17, 24, 39, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(180deg, #f8fafc 0%, #eef4f9 100%);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 72px;
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 76px 0 48px;
+            background:
+                linear-gradient(120deg, rgba(255,255,255,0.8), rgba(230,234,240,0.74)),
+                linear-gradient(180deg, rgba(12, 18, 32, 0.2), rgba(12, 18, 32, 0.04));
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: 7%;
+            bottom: -10px;
+            width: min(46vw, 520px);
+            height: min(72vh, 560px);
+            background:
+                linear-gradient(90deg,
+                    transparent 0 21%,
+                    rgba(17, 24, 39, 0.58) 21% 29%,
+                    rgba(255,255,255,0.16) 29% 33%,
+                    rgba(17, 24, 39, 0.58) 33% 41%,
+                    rgba(255,255,255,0.16) 41% 45%,
+                    rgba(17, 24, 39, 0.58) 45% 53%,
+                    rgba(255,255,255,0.16) 53% 57%,
+                    rgba(17, 24, 39, 0.58) 57% 65%,
+                    transparent 65% 100%),
+                linear-gradient(180deg, rgba(255,255,255,0.1), rgba(17,24,39,0.16));
+            border-radius: 12px 12px 0 0;
+            opacity: 0.9;
+            box-shadow:
+                -155px 0 0 rgba(15, 23, 42, 0.18),
+                -320px 0 0 rgba(15, 23, 42, 0.12),
+                0 20px 30px rgba(15, 23, 42, 0.08);
+            transform: perspective(900px) rotateY(-12deg) skewX(-4deg);
+        }
+
+        .hero-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 6px 12px;
+            border: 1px solid rgba(183,122,29,0.35);
+            border-radius: 999px;
+            font-size: 0.8rem;
+            color: var(--gold);
+            background: rgba(183,122,29,0.08);
+            letter-spacing: 0.08em;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            line-height: 1.05;
+            margin: 18px 0 16px;
+        }
+
+        .lead {
+            max-width: 620px;
+            font-size: 1.08rem;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 22px;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 12px 24px rgba(217,45,45,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--line);
+            color: var(--text);
+        }
+
+        .hero-card {
+            background: rgba(255,255,255,0.72);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 22px;
+            padding: 26px;
+            box-shadow: 0 18px 40px var(--shadow);
+        }
+
+        .card-date {
+            font-size: 0.82rem;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .hero-card h3 {
+            margin: 0 0 12px;
+            font-size: 1.8rem;
+        }
+
+        .hero-card p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 36px;
+        }
+
+        .stat {
+            background: rgba(255,255,255,0.8);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 22px 18px;
+            box-shadow: 0 10px 18px rgba(15, 23, 42, 0.04);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: var(--gold);
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        section {
+            padding: 64px 0;
+        }
+
+        .section-title {
+            margin: 0 0 22px;
+            font-size: clamp(2rem, 3vw, 3rem);
+        }
+
+        .section-copy {
+            max-width: 720px;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 28px;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 28px;
+            box-shadow: 0 10px 18px rgba(15, 23, 42, 0.04);
+        }
+
+        .panel h3 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 1.4rem;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 14px;
+        }
+
+        .info-list li {
+            border-left: 3px solid var(--accent);
+            background: var(--accent-soft);
+            padding: 12px 14px 12px 18px;
+            border-radius: 0 12px 12px 0;
+            color: var(--text);
+        }
+
+        .timeline {
+            display: grid;
+            gap: 18px;
+            margin-top: 22px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 18px;
+            align-items: start;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .time {
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .timeline-item h4 {
+            margin: 0 0 8px;
+            font-size: 1.15rem;
+        }
+
+        .timeline-item p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .impact-box {
+            background: linear-gradient(180deg, #ffffff, #f2f7fc);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 22px 18px;
+            box-shadow: 0 10px 18px rgba(15, 23, 42, 0.04);
+        }
+
+        .impact-box h4 {
+            margin: 0 0 10px;
+            color: var(--gold);
+        }
+
+        .impact-box p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .image-card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 18px rgba(15, 23, 42, 0.05);
+        }
+
+        .image-box {
+            width: 100%;
+            height: 230px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--line);
+            background: linear-gradient(135deg, #edf2f7, #dde8f3);
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-card h4 {
+            margin: 0;
+            padding: 18px 18px 6px;
+            font-size: 1.1rem;
+        }
+
+        .image-card p {
+            margin: 0;
+            padding: 0 18px 18px;
+            color: var(--muted);
+        }
+
+        .quote {
+            margin-top: 24px;
+            padding: 24px 0 0;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 1.03rem;
+        }
+
+        footer {
+            padding: 24px 0 48px;
+            color: var(--muted);
+            text-align: center;
+            border-top: 1px solid var(--line);
+        }
+
+        @media (max-width: 820px) {
+            .hero-grid,
+            .content-grid,
+            .impact-grid,
+            .stats,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                flex-direction: column;
+                justify-content: center;
+                padding: 16px 0;
+                gap: 8px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 14px 18px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="container nav">
+            <div class="brand">9/11</div>
+            <nav class="nav-links">
+                <a href="#overview">事件概述</a>
+                <a href="#timeline">時間軸</a>
+                <a href="#impact">影響</a>
+                <a href="#memory">紀念</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-grid">
+                <div>
+                    <span class="eyebrow">歷史事件介紹</span>
+                    <h1>9/11 事件</h1>
+                    <p class="lead">
+                        2001 年 9 月 11 日，恐怖攻擊事件震驚全球，造成重大生命損失與深遠影響，並改變世界安全政策與國際關係。
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#overview">了解更多</a>
+                        <a class="btn btn-secondary" href="#timeline">查看時間軸</a>
+                    </div>
+
+                    <div class="stats">
+                        <div class="stat">
+                            <strong>4</strong>
+                            <span>受攻擊目標</span>
+                        </div>
+                        <div class="stat">
+                            <strong>2996</strong>
+                            <span>罹難者人數</span>
+                        </div>
+                        <div class="stat">
+                            <strong>2001</strong>
+                            <span>事件發生年份</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-card">
+                    <div class="card-date">2001.09.11</div>
+                    <h3>美國國土上發生的重大恐怖攻擊</h3>
+                    <p>
+                        事件包括世貿中心雙塔遭撞擊、五角大廈受損，以及一架客機在賓州坠毀。這起事件被視為 21 世紀最重要的安全事件之一。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="overview">
+            <div class="container">
+                <h2 class="section-title">事件概述</h2>
+                <p class="section-copy">
+                    9/11 事件發生於 2001 年 9 月 11 日，當天多架民航機被劫持，分別撞入紐約世界貿易中心雙子塔與華盛頓特區的五角大廈，造成數千人死亡與巨大破壞。此事件不僅讓美國國內安全體制重新檢討，也促使全球反恐與情報合作加強。
+                </p>
+
+                <div class="content-grid">
+                    <div class="panel">
+                        <h3>事件背景</h3>
+                        <ul class="info-list">
+                            <li>當天共有 4 架民航機被劫持，造成 4 起同步攻擊。</li>
+                            <li>世界貿易中心位於紐約曼哈頓，象徵美國金融與國際商業中心。</li>
+                            <li>美國政府隨後啟動大規模反恐行動與國土安全改革。</li>
+                            <li>事件後，全球對恐怖主義、網路安全與航空安全的重視明顯提升。</li>
+                        </ul>
+                    </div>
+
+                    <div class="panel">
+                        <h3>事件意義</h3>
+                        <ul class="info-list">
+                            <li>改變美國與全球的安全政策與政治格局。</li>
+                            <li>推動「反恐戰爭」與國際反恐合作的深化。</li>
+                            <li>促使航空安檢、保安監控與情報交流更加嚴格。</li>
+                            <li>成為現代歷史中最具代表性的恐怖攻擊事件之一。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline">
+            <div class="container">
+                <h2 class="section-title">時間軸</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="time">08:46</div>
+                        <div>
+                            <h4>美國航空 11 號班機撞擊北塔</h4>
+                            <p>一架從波士頓起飛的客機撞入世界貿易中心北塔，事件發生後，紐約市陷入緊急狀態。</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="time">09:03</div>
+                        <div>
+                            <h4>聯合航空 175 號班機撞擊南塔</h4>
+                            <p>第二架客機於世界貿易中心南塔撞擊，造成雙塔同時受損，情況迅速惡化。</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="time">09:37</div>
+                        <div>
+                            <h4>五角大廈遭撞</h4>
+                            <p>美國航空 77 號班機撞入華盛頓特區五角大廈，造成重大傷亡與社會震驚。</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="time">10:03</div>
+                        <div>
+                            <h4>南塔倒塌</h4>
+                            <p>世界貿易中心南塔倒塌，標誌著災難規模進一步擴大，救援工作面臨巨大壓力。</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="time">10:28</div>
+                        <div>
+                            <h4>北塔倒塌</h4>
+                            <p>北塔也在短時間內倒塌，造成更多生命損失與結構性破壞。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impact">
+            <div class="container">
+                <h2 class="section-title">事件影響</h2>
+                <div class="impact-grid">
+                    <div class="impact-box">
+                        <h4>人道層面</h4>
+                        <p>造成大量無辜生命損失，廣大家庭受到深遠影響，許多人長期承受創傷與悲痛。</p>
+                    </div>
+                    <div class="impact-box">
+                        <h4>政治層面</h4>
+                        <p>推動美國與各國加強反恐政策、情報共享與安全防範措施，重塑全球戰略思維。</p>
+                    </div>
+                    <div class="impact-box">
+                        <h4>社會層面</h4>
+                        <p>使全球社會更加關注國際安全、城市防災與公共應變系統，以及歷史記憶與紀念文化。</p>
+                    </div>
+                </div>
+
+                <div class="quote">
+                    「9/11 不只是一次悲劇，更是一場改變世界安全觀念與政治決策的重大歷史事件。」
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <div class="container">
+                <h2 class="section-title">圖片展示</h2>
+                <div class="gallery-grid">
+                    <article class="image-card">
+                        <div class="image-box">
+                            <img src="/img/1.png" alt="世界貿易中心"/>
+                        </div>
+                        <h4>世界貿易中心</h4>
+                       <p><a href="https://www.reddit.com/r/architecture/comments/172fd88/why_were_the_twin_towers_of_the_world_trade/?tl=zh-hant">   圖片來源</a></p>
+                    </article>
+                    <article class="image-card">
+                        <div class="image-box">
+                            <img src="/img/2.jpg" alt="紀念活動"/>
+                        </div>
+                        <h4>紀念活動</h4>
+                         <p><a href="https://timtingtravel.com/usa-nyc-911-memorial-museum/">   圖片來源</a></p>
+                    </article>
+                    <article class="image-card">
+                        <div class="image-box">
+                            <img src="/img/3.jpg" alt="歷史回顧"/>
+                        </div>
+                        <h4>歷史回顧</h4>
+                       <p><a href="https://hk.epochtimes.com/news/2016-09-12/%E6%B3%95%E5%BB%A3-%E4%BA%8B%E4%BB%B6-%E5%B9%B4%E5%BE%8C-%E7%BE%8E%E5%9C%8B%E9%99%B7%E5%85%A5%E6%8C%81%E4%B9%85%E6%88%B0%E7%88%AD-16278512">圖片來源</a></p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="memory">
+            <div class="container">
+                <h2 class="section-title">紀念與反思</h2>
+                <p class="section-copy">
+                    每年的 9 月 11 日，全球都會紀念這起事件，凸顯人類在面對災難時的團結、紀念與對和平的追求。透過歷史教育與反思，我們可以更珍視生命、加強防災能力，並共同努力避免類似悲劇再次發生。想知道這事件的幕後黑手請點及<u><a href="https://www.instagram.com/reel/Dc3pLO-uTIo/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==">五角大樓機密文件</a></u>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">© 2026 9/11 事件介紹頁面</div>
+    </footer>
+</body>
+</html>
